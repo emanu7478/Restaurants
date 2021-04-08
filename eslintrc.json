@@ -36,8 +36,8 @@
         }
       ],
       "react/prop-types": [1],
-      "react-hooks/rules-of-hooks": "error", // added "react-hooks/rules-of-hooks"
-      "react-hooks/exhaustive-deps": "warn" // added "react-hooks/exhaustive-deps"
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn" 
     },
     "settings": {
       "import/resolver": "meteor"
