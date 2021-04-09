@@ -7,18 +7,42 @@ import {
   Image,
   Text,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Icon} from 'react-native-elements';
+import RNStatusBar from '../../components/RNStatusBar';
 import axios from 'axios';
 import style from './style';
 
+const object = require('../../assets/Json/restaurants.json');
+
 function Home() {
+  const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const [restaurants, updateRestaurants] = useState([]);
   const [restaurantSearchResult, updateRestaurantSearchResult] = useState([]);
+  const [searchParam, setSearchParam] = useState('Kuria');
+
+  useEffect(() => {
+    console.warn(object);
+    updateRestaurants(object.restaurants);
+    // axios
+    //   .post(
+    //     `   https://nominatim.openstreetmap.org/search?q=${searchParam}&format=json`,
+    //     // ${constant.WEATHER_URL}lat=${coords.latitude}&lon=${coords.longitude}&APPID=${constant.WEATHER_API}`,
+    //   )
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+  }, []);
 
   const renderRestaurants = ({item}) => {
     return (
-      <TouchableHighlight>
+      <TouchableHighlight
+        underlayColor="transparent"
+        onPress={() => navigation.navigate('RestaurantDetail', {data: item})}>
         <View style={{...style.restaurantContainer, width: width - 15}}>
           <View>
             <Image
@@ -67,6 +91,7 @@ function Home() {
 
   return (
     <View style={style.container}>
+      <RNStatusBar />
       {restaurants.length !== 0 ? (
         <View style={style.flatlistContainer}>
           <FlatList

@@ -34,7 +34,7 @@ const AppScreens = () => {
         component={Screens.RestaurantDetail}
         options={{
           // title: 'picsaday', //Set Header Title
-          headerShown: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
