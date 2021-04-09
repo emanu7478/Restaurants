@@ -1,8 +1,8 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import AppNavigator from './navigation';
 
 function SufficioIndex() {
-  return <View />;
+  return <AppNavigator />;
 }
 
 export default SufficioIndex;
