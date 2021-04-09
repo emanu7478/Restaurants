@@ -1,15 +1,8 @@
-import React from 'react';
-import {View} from 'react-native';
-import RNStatusBar from './components/RNStatusBar';
-import RNTextInput from './components/RNTextInput';
+import React, {useState, useEffect} from 'react';
+import AppNavigator from './navigation';
 
 function SufficioIndex() {
-  return (
-    <View>
-      <RNStatusBar />
-      <RNTextInput placeholder="haai" />
-    </View>
-  );
+  return <AppNavigator />;
 }
 
 export default SufficioIndex;
