@@ -7,7 +7,7 @@ const RNStatusBar = (props) => {
   const {backgroundColor} = props;
   return (
     <StatusBar
-      backgroundColor={constant.BACKGROUND_PRIMARY_COLOR}
+      backgroundColor={constant.PRIMARY_COLOR}
       barStyle="dark-content"
     />
   );
