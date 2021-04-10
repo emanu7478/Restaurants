@@ -1,24 +1,42 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {FlatList, Image, Text, useWindowDimensions, View} from 'react-native';
+import {connect} from 'react-redux';
 import moment from 'moment';
 import {Icon, Rating} from 'react-native-elements';
 import RNStatusBar from '../../components/RNStatusBar';
-import * as constant from '../../constants';
 import style from './style';
 import BackButton from '../../components/BackButton';
+import * as constant from '../../constants';
 
-function RestaurantDetail() {
+function RestaurantDetail(props) {
   const {width} = useWindowDimensions();
   const navigation = useNavigation();
   const route = useRoute();
+  const [restaurantDetail, updateRestaurantDetail] = useState([]);
+  const [restaurantReviews, updateRestaurantReviews] = useState([]);
+  const [restaurantWrkngHours, setRestaurantWrkngHours] = useState([]);
+  const [restaurantReviewsRate, setRestaurantReviewsRate] = useState(0);
+
+  useEffect(() => {
+    props.restaurants.map((item) => {
+      if (item.id === route.params.data) {
+        updateRestaurantDetail(item);
+        {
+          let tempReview = 0;
+          item.reviews.map((review) => {
+            tempReview = tempReview + review.rating;
+          });
+          setRestaurantReviewsRate(
+            (tempReview / item.reviews.length).toFixed(1),
+          );
+        }
+        updateRestaurantReviews(item.reviews);
+        setRestaurantWrkngHours(item.operating_hours[moment().format('dddd')]);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderFlatlistHeader = () => {
     return (
@@ -33,24 +51,31 @@ function RestaurantDetail() {
         </View>
         <View style={style.flatlistHeaderContainer}>
           <View style={style.restaurantNameContainer}>
-            <Text style={style.restaurantTitle}>{route.params.data.name}</Text>
-            <Text style={style.restaurantAddress}>
-              {route.params.data.address}
-            </Text>
+            <View>
+              <Text style={style.restaurantTitle}>{restaurantDetail.name}</Text>
+              <Text style={style.restaurantAddress}>
+                {restaurantDetail.address}
+              </Text>
+            </View>
+            <View style={style.restaurantOverallRatingContainer}>
+              <Text style={style.restaurantOverallRating}>
+                {restaurantReviewsRate}
+              </Text>
+              <Icon name="star" color={constant.PRIMARY_COLOR} size={10} />
+            </View>
           </View>
           <View style={style.restaurantDetailContainer}>
             <View style={style.restaurantDetailInnerContainer}>
               <View style={style.restaurantDataContainer}>
                 <Text style={style.restaurantDetailHeader}>Opening Hour</Text>
                 <Text style={style.restaurantDetailData}>
-                  {route.params.data.operating_hours[moment().format('dddd')]}{' '}
-                  (Today)
+                  {restaurantWrkngHours} (Today)
                 </Text>
               </View>
               <View>
                 <Text style={style.restaurantDetailHeader}>Cuisine</Text>
                 <Text style={style.restaurantDetailData}>
-                  {route.params.data.cuisine_type}
+                  {restaurantDetail.cuisine_type}
                 </Text>
               </View>
             </View>
@@ -58,13 +83,7 @@ function RestaurantDetail() {
               <View>
                 <Text style={style.restaurantDetailHeader}>Neighborhood</Text>
                 <Text style={style.restaurantDetailData}>
-                  {route.params.data.neighborhood}
-                </Text>
-              </View>
-              <View>
-                <Text style={style.restaurantDetailHeader}>Reviews</Text>
-                <Text style={style.restaurantDetailData}>
-                  {route.params.data.reviews.length}
+                  {restaurantDetail.neighborhood}
                 </Text>
               </View>
             </View>
@@ -108,19 +127,27 @@ function RestaurantDetail() {
   };
 
   return (
+    // <SafeAreaView style={{flex: 1}}>
     <View style={style.container}>
       <View>
         <FlatList
           // contentContainerStyle={{alignItems: 'center'}}
           ListHeaderComponent={renderFlatlistHeader}
-          data={route.params.data.reviews}
+          data={restaurantReviews}
           renderItem={renderReviews}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.name.toString()}
         />
       </View>
     </View>
+    // </SafeAreaView>
   );
 }
 
-export default RestaurantDetail;
+const MapStateToProps = (state) => {
+  return {
+    restaurants: state.restaurants,
+  };
+};
+
+export default connect(MapStateToProps)(RestaurantDetail);

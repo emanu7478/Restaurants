@@ -10,6 +10,10 @@ export default StyleSheet.create({
     flex: 1,
     marginVertical: 10,
   },
+  viewContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   flatlistContentContainer: {
     alignItems: 'center',
   },
@@ -18,7 +22,11 @@ export default StyleSheet.create({
     borderRadius: 13,
     backgroundColor: constant.PRIMARY_COLOR,
     marginVertical: 10,
-    elevation: 5,
+    elevation: 0.7,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.4,
+    shadowRadius: 1,
   },
   restaurantImage: {
     height: 135,

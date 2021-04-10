@@ -17,7 +17,7 @@ function BackButton(props) {
         style.container,
         {
           backgroundColor: PRIMARY_COLOR,
-          marginTop: marginTop ? marginTop : 15,
+          marginTop: marginTop ? marginTop : 35,
           height: height ? height : 38,
           width: width ? width : 38,
         },

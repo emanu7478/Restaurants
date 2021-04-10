@@ -7,7 +7,7 @@ export default StyleSheet.create({
     backgroundColor: constant.PRIMARY_COLOR,
   },
   image: {
-    height: 180,
+    height: 220,
   },
   flatlistHeaderContainer: {
     flex: 1,
@@ -15,6 +15,8 @@ export default StyleSheet.create({
     paddingVertical: 5,
   },
   restaurantNameContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingTop: 10,
     paddingBottom: 15,
     borderBottomWidth: 0.9,
@@ -24,14 +26,29 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 4,
     fontSize: 19,
+    letterSpacing: 1,
     color: '#6b6b6b',
   },
   restaurantAddress: {
     color: '#dbdbdb',
     fontSize: 12,
   },
+  restaurantOverallRatingContainer: {
+    height: 30,
+    width: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    backgroundColor: '#db0948',
+  },
+  restaurantOverallRating: {
+    fontSize: 9,
+    color: constant.PRIMARY_COLOR,
+    fontWeight: 'bold',
+  },
   restaurantDetailContainer: {
-    paddingVertical: 20,
+    paddingVertical: 15,
     borderBottomWidth: 0.9,
     borderBottomColor: constant.GLOSSY_WHITE,
   },

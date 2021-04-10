@@ -1,10 +1,7 @@
 import 'react-native-gesture-handler';
-import {Image, Easing, StyleSheet, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {Icon} from 'react-native-elements';
+import React from 'react';
 import {
   createStackNavigator,
-  TransitionPresets,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import * as Screens from './screenRoutes';
